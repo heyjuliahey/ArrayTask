@@ -1,20 +1,33 @@
 package by.epam.arrayTask.reader;
 
-import by.epam.arrayTask.entity.CustomArray;
+import by.epam.arrayTask.exception.CustomException;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
 
 public class CustomFileReader {
-    int size;
+   public String readFromFile(String fileName) throws CustomException {
+       File file = new File(fileName);
+       ArrayList<String> array = new ArrayList<>();
 
-    public void read(CustomArray customArray) throws IOException {
-        Scanner sc = new Scanner(new File("input.txt"));
-        size = sc.nextInt();
-        customArray = new CustomArray(size);
+       if(file.exists() && file.length() == 0)
+       {
+            throw new CustomException("file is empty");
+       }
 
-        for(int i = 0; i < size; i++)
-            customArray.setElement(i, sc.nextInt());
-    }
+       try(BufferedReader reader = new BufferedReader(new FileReader(file)))
+       {
+            String tmp;
+            while((tmp = reader.readLine()) != null)
+            {
+                array.add(tmp);
+            }
+       }
+       catch(IOException e)
+       {
+           e.printStackTrace();
+           throw new CustomException(e);
+       }
+       return fileName;
+   }
 }
