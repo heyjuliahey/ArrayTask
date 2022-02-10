@@ -1,6 +1,6 @@
 package test.epam.learn.action;
 
-import by.epam.arrayTask.exception  .CustomException;
+import by.epam.arrayTask.exception.CustomException;
 import by.epam.arrayTask.reader.CustomFileReader;
 import org.junit.AfterClass;
 import org.junit.Assert;
